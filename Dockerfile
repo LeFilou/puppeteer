@@ -15,7 +15,10 @@ RUN apt-get update && apt-get install -y wget --no-install-recommends \
 ADD https://github.com/Yelp/dumb-init/releases/download/v1.2.0/dumb-init_1.2.0_amd64 /usr/local/bin/dumb-init
 RUN chmod +x /usr/local/bin/dumb-init
 
-RUN npm i puppeteer
+RUN npm install --unsafe-perm -g full-icu
+ENV NODE_ICU_DATA="/usr/local/lib/node_modules/full-icu"
+
+RUN npm install puppeteer
 
 RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
     && mkdir -p /home/pptruser/Downloads \
